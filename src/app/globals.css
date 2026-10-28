@@ -1,26 +1,242 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --tap-highlight-color: rgba(255, 255, 255, 0);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Text Color */
+  --text-primary: #0f0e0e;
+  --text-secondary: #595b59;
+  --text-wine-red: #4d0908;
+  --text-rustic-rose: #a88786;
+  --text-muted-rose: #cbb7b7;
+  --text-ivory-rose: #e4dcdb;
+  --text-white: #ffffff;
+  --text-rose: #f09495;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Background Color */
+  --bg-primary: #f2ede6;
+  --bg-secondary: #ffffff;
+  --bg-wine-red: #4d0908;
+  --bg-wine-red-40: #4d090866;
+  --bg-wine-red-30: #4d09084d;
+  --bg-wine-red-24: #4d09083d;
+  --bg-oxblood: #612525;
+  --bg-rose-49: #f094957d;
+  --bg-dusty-rose: #946b6b;
+  --bg-light-rose: #efc6c3;
+  --bg-light-rose-80: #e6c9c4;
+  --bg-dark-rose: #e1d6cf;
+  --bg-linen-white: #ede7e3;
+  --bg-off-white: #f8f5f5;
+  --bg-white-46: #ffffff75;
+  --bg-white-20: #ffffff33;
+  --bg-white-60: #ffffff99;
+  --bg-overlay-0: #00000000;
+  --bg-overlay-4: #0000000a;
+  --bg-overlay-18: #0000002e;
+  --bg-overlay-30: #0000004d;
+  --bg-overlay-48: #0000007a;
+  --bg-overlay-54: #0000008a;
+  --bg-overlay-60: #00000099;
+  --bg-light-brown: #d6c8bd80;
+  --bg-ivory-beige: #efe9e0;
+
+  /* Border Color */
+  --border-primary: #d3c6be;
+  --border-secondary: #e8dfdf;
+  --border-tertiary: #946b6b;
+  --border-black-8: #00000014;
+  --border-white-20: #ffffff33;
+  --border-white-30: #ffffff66;
+
+  /* Brand Color */
+  --rose: #f09495;
+  --orange: #d76a41;
+  --wine-red: #4d0908;
+  --light-wine-red: #571414;
+  --lime: #e7e56e;
+  --light-lime: #f1ef78;
+  --light-lime-offset: #f1efa8;
+  --neutral: #b6b0a4;
+  --mist: #eff4ee;
+  --transparent: transparent;
+  --status-dot: #68fb7f;
+  --asterisk-red: #ff0000;
+  --opaque-black: #0000004c;
+
+  /* Box Shadow */
+  --box-shadow: 0px 0px 2px 0px #0000000a;
+  --box-shadow-secondary: 0px 0px 4px 0px #0000000f;
+  --box-shadow-dropdown: 0px 2px 12px 0px #0000001a;
+
+  /* Spacing Variables */
+  --spacing-0: 0px;
+  --spacing-1: 1px;
+  --spacing-2: 2px;
+  --spacing-3: 3px;
+  --spacing-4: 4px;
+  --spacing-5: 5px;
+  --spacing-6: 6px;
+  --spacing-7: 7px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-11: 11px;
+  --spacing-12: 12px;
+  --spacing-13: 13px;
+  --spacing-14: 14px;
+  --spacing-15: 15px;
+  --spacing-16: 16px;
+  --spacing-18: 18px;
+  --spacing-20: 20px;
+  --spacing-22: 22px;
+  --spacing-24: 24px;
+  --spacing-26: 26px;
+  --spacing-28: 28px;
+  --spacing-30: 30px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-42: 42px;
+  --spacing-44: 44px;
+  --spacing-48: 48px;
+  --spacing-50: 50px;
+  --spacing-55: 55px;
+  --spacing-60: 60px;
+  --spacing-64: 64px;
+  --spacing-66: 66px;
+  --spacing-70: 70px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-84: 84px;
+  --spacing-100: 100px;
+  --spacing-120: 120px;
+  --spacing-130: 130px;
+  --spacing-140: 140px;
+  --spacing-144: 144px;
+  --spacing-150: 150px;
+  --spacing-160: 160px;
+  --spacing-194: 194px;
+
+  /* Radius Variables */
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+
+  /* Container Spacing */
+  --horizontal-padding: 72px;
+  --vertical-padding: 120px;
+  --vertical-half-padding: 60px;
+  --vertical-fill-padding: 80px;
+  --gap-md: 60px;
+  --gap-sm: 32px;
+  --gap-xs: 20px;
+
+  /* Font Size Variables */
+  --font-size-h1: 68px;
+  --font-size-h2: 64px;
+  --font-size-h3: 48px;
+  --font-size-h4: 32px;
+  --font-size-h5: 28px;
+  --font-size-body-lg: 24px;
+  --font-size-body-md: 20px;
+  --font-size-body-sm: 18px;
+  --font-size-body-xs: 16px;
+  --font-size-body-xxs: 14px;
+
+  /* Line Height Variables */
+  --line-height-h1: 80px;
+  --line-height-h2: 76px;
+  --line-height-h3: 60px;
+  --line-height-h4: 44px;
+  --line-height-h5: 40px;
+  --line-height-body-lg: 34px;
+  --line-height-body-md: 30px;
+  --line-height-body-sm: 28px;
+  --line-height-body-xs: 26px;
+  --line-height-body-xxs: 24px;
+
+  /* Font Weight Variables */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  @media (max-width: 1179px) {
+    --horizontal-padding: 24px;
+    --vertical-padding: 80px;
+    --vertical-half-padding: 40px;
+    --vertical-fill-padding: 60px;
+    --gap-md: 44px;
+    --gap-sm: 28px;
+
+    /* Responsive Font Sizes */
+    --font-size-h1: 56px;
+    --font-size-h2: 48px;
+    --font-size-h3: 40px;
+    --font-size-h4: 28px;
+    --font-size-h5: 26px;
+    --font-size-body-lg: 22px;
+
+    /* Responsive Line Heights */
+    --line-height-h1: 68px;
+    --line-height-h2: 60px;
+    --line-height-h3: 52px;
+    --line-height-h4: 40px;
+    --line-height-h5: 38px;
+    --line-height-body-lg: 32px;
+  }
+
+  @media (max-width: 767px) {
+    --horizontal-padding: 20px;
+    --vertical-padding: 60px;
+    --vertical-half-padding: 30px;
+    --vertical-fill-padding: 40px;
+    --gap-md: 32px;
+    --gap-sm: 24px;
+    --gap-xs: 16px;
+
+    /* Responsive Font Sizes */
+    --font-size-h1: 44px;
+    --font-size-h2: 40px;
+    --font-size-h3: 36px;
+    --font-size-h4: 26px;
+    --font-size-h5: 22px;
+    --font-size-body-lg: 20px;
+    --font-size-body-md: 18px;
+    --font-size-body-sm: 16px;
+
+    /* Responsive Line Heights */
+    --line-height-h1: 56px;
+    --line-height-h2: 52px;
+    --line-height-h3: 48px;
+    --line-height-h4: 38px;
+    --line-height-h5: 34px;
+    --line-height-body-lg: 30px;
+    --line-height-body-md: 28px;
+    --line-height-body-sm: 26px;
   }
 }
 
+@theme inline {
+  --font-figtree: var(--font-figtree);
+  --font-mono: var(--font-geist-mono);
+}
+
+html[data-scroll-behavior="smooth"] {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-figtree), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: var(--tap-highlight-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
