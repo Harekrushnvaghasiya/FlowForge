@@ -16,7 +16,7 @@ import {
   SecondaryButton,
   TechStackWrapper,
   TechBadge,
-} from "./style";
+} from "./styles";
 
 export function HomeHeroSection({ data }: HomeHeroSectionProps) {
   const { badge, title, description, buttons, techStack } = data;
