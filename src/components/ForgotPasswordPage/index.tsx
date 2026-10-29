@@ -21,7 +21,7 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Password reset requested for:", email);
+    // TODO: call the password reset API
     setSubmitted(true);
   };
 

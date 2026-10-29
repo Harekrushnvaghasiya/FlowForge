@@ -32,7 +32,7 @@ export function SignInPage({ data }: SignInPageProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Sign In Submitted", { email, passWord });
+        // TODO: call the sign-in API
     };
 
     return (

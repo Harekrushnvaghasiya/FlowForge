@@ -36,7 +36,7 @@ export function SignUpPage({ data }: SignUpPageProps) {
             alert("Passwords do not match");
             return;
         }
-        console.log("Sign Up Submitted!", { email, password });
+        // TODO: call the sign-up API
     };
 
     return (
