@@ -11,6 +11,13 @@ export const AuthContainer = styled.div`
   overflow: hidden;
   background-color: #ffffff;
   display: flex;
+
+  /* On short screens or mobile landscape, enable scrolling so content is never clipped */
+  @media (max-width: 991px), (max-height: 650px) {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
 `;
 
 // ==========================================
@@ -24,6 +31,7 @@ export const LeftBgImage = styled.div<{ $isVisible: boolean }>`
   height: 100%;
   z-index: 1;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  will-change: opacity;
   transition: opacity 0.65s cubic-bezier(0.65, 0, 0.35, 1);
   pointer-events: none;
   overflow: hidden;
@@ -41,6 +49,7 @@ export const RightBgImage = styled.div<{ $isVisible: boolean }>`
   height: 100%;
   z-index: 1;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  will-change: opacity;
   transition: opacity 0.65s cubic-bezier(0.65, 0, 0.35, 1);
   pointer-events: none;
   overflow: hidden;
@@ -64,13 +73,22 @@ export const SlidingFormPanel = styled.div<{ $isSignUp: boolean }>`
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  will-change: transform;
   transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
   transform: ${({ $isSignUp }) => ($isSignUp ? "translateX(100%)" : "translateX(0%)")};
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 32px 20px;
+
+  /* On large viewports with adequate height, remove scroll container overhead for pure 60fps transform */
+  @media (min-width: 992px) and (min-height: 651px) {
+    overflow: hidden;
+  }
 
   @media (max-width: 991px) {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: auto;
     min-height: 100vh;
     transform: none;
     padding: 32px 20px;
@@ -82,7 +100,8 @@ export const FormCard = styled.div`
   position: relative;
   width: 100%;
   max-width: 380px;
-  min-height: 480px;
+  min-height: 520px;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,10 +117,11 @@ export const FormContent = styled.div<{ $isActive: boolean }>`
   pointer-events: ${({ $isActive }) => ($isActive ? "auto" : "none")};
   visibility: ${({ $isActive }) => ($isActive ? "visible" : "hidden")};
   opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
+  will-change: opacity, transform;
   transition: ${({ $isActive }) =>
     $isActive
-      ? "opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.22s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.22s, visibility 0.35s 0.22s"
-      : "opacity 0.15s ease-out 0s, transform 0.15s ease-out 0s, visibility 0.15s 0.15s"};
+      ? "opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s, visibility 0.4s 0.15s"
+      : "opacity 0.18s ease 0s, transform 0.18s ease 0s, visibility 0.18s 0.18s"};
 `;
 
 export const Title = styled.h1`
@@ -155,6 +175,18 @@ export const Input = styled.input`
     border-color: #2563eb;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   }
+`;
+
+export const FormErrorMessage = styled.div`
+  color: #dc2626;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
 `;
 
 export const PrimaryButton = styled.button`
@@ -242,11 +274,7 @@ export const BottomPrompt = styled.p`
   font-size: 13px;
   color: #6b7280;
 
-  a, button {
-    background: none;
-    border: none;
-    font-size: inherit;
-    font-family: inherit;
+  a {
     color: #1677ff;
     font-weight: 600;
     text-decoration: none;
@@ -272,6 +300,7 @@ export const SlidingQuotePanel = styled.div<{ $isSignUp: boolean }>`
   pointer-events: none;
   display: flex;
   justify-content: center;
+  will-change: transform;
   transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
   transform: ${({ $isSignUp }) => ($isSignUp ? "translateX(-100%)" : "translateX(0%)")};
 
@@ -287,15 +316,16 @@ export const QuoteLayer = styled.div<{ $isActive: boolean }>`
   right: 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 510px;
+  max-width: 460px;
   padding: 0 28px;
   opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
-  transform: ${({ $isActive }) => ($isActive ? "translateY(0)" : "translateY(10px)")};
+  transform: ${({ $isActive }) => ($isActive ? "translateY(0)" : "translateY(8px)")};
   visibility: ${({ $isActive }) => ($isActive ? "visible" : "hidden")};
+  will-change: opacity, transform;
   transition: ${({ $isActive }) =>
     $isActive
-      ? "opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.22s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.22s, visibility 0.35s 0.22s"
-      : "opacity 0.15s ease-out 0s, transform 0.15s ease-out 0s, visibility 0.15s 0.15s"};
+      ? "opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s, visibility 0.4s 0.15s"
+      : "opacity 0.18s ease 0s, transform 0.18s ease 0s, visibility 0.18s 0.18s"};
 `;
 
 export const QuoteBox = styled.div`

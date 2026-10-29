@@ -67,10 +67,6 @@ export interface AuthPageData {
   quote: AuthQuoteData;
 }
 
-export interface SignInPageProps {
-  data: AuthPageData;
-}
-
-export interface SignUpPageProps {
-  data: AuthPageData;
+export interface AuthSliderProps {
+  initialMode?: "signin" | "signup";
 }

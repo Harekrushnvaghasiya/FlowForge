@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SVGIcon from "@/assets/icons/SVGIcon";
 import { signInData, signUpData } from "@/helpers/raw";
@@ -17,6 +18,7 @@ import {
   InputGroup,
   IconSlot,
   Input,
+  FormErrorMessage,
   PrimaryButton,
   ForgotPassword,
   Divider,
@@ -29,21 +31,51 @@ import {
   QuoteText,
   Author,
 } from "./styles";
-
-interface AuthSliderProps {
-  initialMode?: "signin" | "signup";
-}
+import { AuthSliderProps } from "@/global/appTypes";
 
 export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) {
   const pathname = usePathname();
+
   const [isSignUp, setIsSignUp] = useState(
     initialMode === "signup" || (typeof window !== "undefined" && window.location.pathname.includes("signup"))
   );
 
+  // Form input refs for focus management between transitions
+  const signInFirstInputRef = useRef<HTMLInputElement>(null);
+  const signUpFirstInputRef = useRef<HTMLInputElement>(null);
+  const isInitialMount = useRef(true);
+
+  // Shift focus to the active form's first input to maintain keyboard & screen-reader context
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    const timer = setTimeout(() => {
+      if (isSignUp) {
+        signUpFirstInputRef.current?.focus();
+      } else {
+        signInFirstInputRef.current?.focus();
+      }
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [isSignUp]);
+
   // Sync state if user clicks browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
-      setIsSignUp(window.location.pathname.includes("signup"));
+      const isTargetSignUp = window.location.pathname.includes("signup");
+      setIsSignUp(isTargetSignUp);
+      if (typeof document !== "undefined") {
+        document.title = isTargetSignUp ? "Sign Up - FlowForge" : "Log In - FlowForge";
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.setAttribute(
+            "content",
+            isTargetSignUp ? "Sign up to your FlowForge account" : "Log in to your FlowForge account"
+          );
+        }
+      }
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
@@ -57,14 +89,34 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
   }
 
   // Smooth sliding transition handler
-  const handleSwitch = (e: React.MouseEvent, target: "signin" | "signup") => {
+  const handleSwitch = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    target: "signin" | "signup"
+  ) => {
+    // Preserve standard browser behaviors (Cmd/Ctrl click to open in new tab)
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return;
+    }
+
     e.preventDefault();
-    e.stopPropagation();
     const isTargetSignUp = target === "signup";
     setIsSignUp(isTargetSignUp);
 
-    const targetUrl = isTargetSignUp ? "/signup" : "/signin";
-    window.history.pushState(null, "", targetUrl);
+    // Dynamically update document title and description
+    if (typeof document !== "undefined") {
+      document.title = isTargetSignUp ? "Sign Up - FlowForge" : "Log In - FlowForge";
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute(
+          "content",
+          isTargetSignUp ? "Sign up to your FlowForge account" : "Log in to your FlowForge account"
+        );
+      }
+    }
+
+    // Update URL smoothly without unmounting the slider or interrupting the CSS animation
+    window.history.pushState(null, "", href);
   };
 
   // Sign In form state
@@ -75,19 +127,21 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [signUpError, setSignUpError] = useState<string | null>(null);
 
   const handleSignInSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign In Submitted", { signInEmail, signInPassword });
+    // TODO: call the sign-in API
   };
 
   const handleSignUpSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (signUpPassword !== repeatPassword) {
-      alert("Passwords do not match");
+      setSignUpError("Passwords do not match. Please try again.");
       return;
     }
-    console.log("Sign Up Submitted", { signUpEmail, signUpPassword });
+    setSignUpError(null);
+    // TODO: call the sign-up API
   };
 
   return (
@@ -101,7 +155,8 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
           src={signUpData.quote.imageUrl}
           alt={signUpData.quote.imageAlt || "Sign Up Background"}
           fill
-          priority
+          priority={initialMode === "signup"}
+          sizes="(max-width: 991px) 0vw, 50vw"
           style={{ objectFit: "cover", objectPosition: "0% bottom", zIndex: 0 }}
         />
       </LeftBgImage>
@@ -112,7 +167,8 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
           src={signInData.quote.imageUrl}
           alt={signInData.quote.imageAlt || "Sign In Background"}
           fill
-          priority
+          priority={initialMode !== "signup"}
+          sizes="(max-width: 991px) 0vw, 50vw"
           style={{ objectFit: "cover", objectPosition: "93% bottom", zIndex: 0 }}
         />
       </RightBgImage>
@@ -131,6 +187,7 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                   <SVGIcon name="email" height="21.5" width="17.2" />
                 </IconSlot>
                 <Input
+                  ref={signInFirstInputRef}
                   type="email"
                   name="email"
                   autoComplete="email"
@@ -183,12 +240,14 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
 
               <BottomPrompt>
                 {signInData.bottomPrompt.text}
-                <button
-                  type="button"
-                  onClick={(e) => handleSwitch(e, "signup")}
+                <Link
+                  href={signInData.bottomPrompt.actionHref}
+                  onClick={(e) =>
+                    handleSwitch(e, signInData.bottomPrompt.actionHref, "signup")
+                  }
                 >
                   {signInData.bottomPrompt.actionText}
-                </button>
+                </Link>
               </BottomPrompt>
             </Form>
           </FormContent>
@@ -202,12 +261,16 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                   <SVGIcon name="email" height="21.5" width="17.2" />
                 </IconSlot>
                 <Input
+                  ref={signUpFirstInputRef}
                   type="email"
                   name="email"
                   autoComplete="email"
                   placeholder="Your email"
                   value={signUpEmail}
-                  onChange={(e) => setSignUpEmail(e.target.value)}
+                  onChange={(e) => {
+                    setSignUpEmail(e.target.value);
+                    if (signUpError) setSignUpError(null);
+                  }}
                   required
                 />
               </InputGroup>
@@ -222,7 +285,10 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                   autoComplete="new-password"
                   placeholder="Password"
                   value={signUpPassword}
-                  onChange={(e) => setSignUpPassword(e.target.value)}
+                  onChange={(e) => {
+                    setSignUpPassword(e.target.value);
+                    if (signUpError) setSignUpError(null);
+                  }}
                   required
                 />
               </InputGroup>
@@ -237,10 +303,19 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                   autoComplete="new-password"
                   placeholder="Repeat Password"
                   value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
+                  onChange={(e) => {
+                    setRepeatPassword(e.target.value);
+                    if (signUpError) setSignUpError(null);
+                  }}
                   required
                 />
               </InputGroup>
+
+              {signUpError && (
+                <FormErrorMessage role="alert" aria-live="assertive">
+                  {signUpError}
+                </FormErrorMessage>
+              )}
 
               <PrimaryButton type="submit">{signUpData.submitButtonText}</PrimaryButton>
 
@@ -263,12 +338,14 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
 
               <BottomPrompt>
                 {signUpData.bottomPrompt.text}
-                <button
-                  type="button"
-                  onClick={(e) => handleSwitch(e, "signin")}
+                <Link
+                  href={signUpData.bottomPrompt.actionHref}
+                  onClick={(e) =>
+                    handleSwitch(e, signUpData.bottomPrompt.actionHref, "signin")
+                  }
                 >
                   {signUpData.bottomPrompt.actionText}
-                </button>
+                </Link>
               </BottomPrompt>
             </Form>
           </FormContent>
