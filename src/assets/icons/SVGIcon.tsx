@@ -7,7 +7,7 @@ const getViewBox = (name?:IconName)=>{
         case "email":
             return "0 0 21.5 17.2" ;
         case "key":
-            return "0 0 19 19" ;
+            return "0 0 22 22" ;
     }
 }
 const getPath = (name?:IconName) => {

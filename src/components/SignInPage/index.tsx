@@ -2,8 +2,13 @@
 
 import { SignInPageProps } from "@/global/appTypes";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import SVGIcon from "@/assets/icons/SVGIcon";
 import { 
     AuthWrapper,
+    Author,
+    BottomPrompt,
     Divider, 
     ForgotPassword, 
     Form, 
@@ -17,18 +22,17 @@ import {
     QuoteText, 
     Title 
 } from "./styles";
-import SVGIcon from "@/assets/icons/SVGIcon";
-import Link from "next/link";
 
-export function SignInPage({data}: SignInPageProps){
-    const [email,setEmail] = useState("");
-    const [passWord,setPassword] = useState("");
+export function SignInPage({ data }: SignInPageProps) {
+    const [email, setEmail] = useState("");
+    const [passWord, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent)=>{
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-    console.log("Sign In Submitted",{email,passWord});
+        console.log("Sign In Submitted", { email, passWord });
     };
-    return(
+
+    return (
         <AuthWrapper>
             <FormSide>
                 <Title>{data.title}</Title>
@@ -37,29 +41,53 @@ export function SignInPage({data}: SignInPageProps){
                         <IconSlot>
                             <SVGIcon name="email" height="21.5" width="17.2" />
                         </IconSlot>
-                        <Input type="email" placeholder="Your mail" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                        <Input 
+                            type="email" 
+                            placeholder="Your mail" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
                     </InputGroup>
                     <InputGroup>
                         <IconSlot>
                             <SVGIcon name="key" height="19" width="19" />
                         </IconSlot>
-                        <Input type="password" placeholder="password" value={passWord} onChange={(e)=>setPassword(e.target.value)}/>
+                        <Input 
+                            type="password" 
+                            placeholder="password" 
+                            value={passWord} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />
                     </InputGroup>
 
-                     <PrimaryButton type="submit">{data.submitButtonText}</PrimaryButton>
+                    <PrimaryButton type="submit">{data.submitButtonText}</PrimaryButton>
 
-                     {data.forgotPasswordText && (
-                        <Link href={data.forgotPasswordHref || "#"} passHref legacyBehavior>
+                    {data.forgotPasswordText && (
+                        <Link href={data.forgotPasswordHref || "#"}>
                             <ForgotPassword>{data.forgotPasswordText}</ForgotPassword>
                         </Link>
-                     )}
+                    )}
 
-                     <Divider>
+                    <Divider>
                         <span>{data.dividerText}</span>
-                     </Divider>
+                    </Divider>
+                    <BottomPrompt>
+                        {data.bottomPrompt.text}
+                        <Link href={data.bottomPrompt.actionHref}>
+                            {data.bottomPrompt.actionText}
+                        </Link>
+                    </BottomPrompt>
                 </Form>
             </FormSide>
-            <ImageSide $bgImage={data.quote.imageUrl}>
+
+            <ImageSide>
+                <Image
+                    src={data.quote.imageUrl}
+                    alt={data.quote.imageAlt || "Sign In Background"}
+                    fill
+                    priority
+                    style={{ objectFit: "cover", zIndex: 0 }}
+                />
                 <QuoteBox>
                     <QuoteText>
                         {data.quote.quoteText.start}
@@ -67,10 +95,11 @@ export function SignInPage({data}: SignInPageProps){
                         {data.quote.quoteText.middle}
                         <span className="highlight">{data.quote.quoteText.highlight2}</span>
                     </QuoteText>
+                    {data.quote.author && <Author>{data.quote.author}</Author>}
                 </QuoteBox>
             </ImageSide>
         </AuthWrapper>
-    )
+    );
 }
 
 export default SignInPage;

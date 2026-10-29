@@ -1,0 +1,120 @@
+"use client"
+
+import { SignUpPageProps } from "@/global/appTypes";
+import { useState } from "react";
+import { 
+    Author, 
+    AuthWrapper, 
+    Form, 
+    FormContainer, 
+    FormSide, 
+    ImageSide, 
+    InputGroup, 
+    QuoteBox, 
+    QuoteText, 
+    Title, 
+    IconSlot, 
+    Input, 
+    PrimaryButton, 
+    Divider, 
+    BottomPrompt 
+} from "../SignUpPage/styles";
+import Image from "next/image";
+import SVGIcon from "@/assets/icons/SVGIcon";
+import Link from "next/link";
+
+function SignUpPage({data}:SignUpPageProps) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatPassword, SetRepeatPassword] = useState("");
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if(password !== repeatPassword){
+            alert("Passwords do not match");
+            return;
+        }
+        console.log("Sign Up Submitted!", {email,password});
+    };
+
+    return(
+        <AuthWrapper>
+            <ImageSide>
+                <Image 
+                    src={data.quote.imageUrl}
+                    alt= {data.quote.imageAlt || "Sign Up Background"}
+                    fill
+                    priority
+                    style={{objectFit:"cover", zIndex: 0}}
+                />
+                <QuoteBox>
+                    <QuoteText>
+                        {data.quote.quoteText.start}
+                        <span className="highlight">{data.quote.quoteText.highlight1}</span>
+                        {data.quote.quoteText.middle}
+                        <span className="highlight">{data.quote.quoteText.highlight2}</span>
+                    </QuoteText>
+                    {data.quote.author && 
+                    <Author>{data.quote.author}</Author>}
+                </QuoteBox>
+            </ImageSide>
+
+            <FormSide>
+                <FormContainer>
+                    <Title>{data.title}</Title>
+                    <Form onSubmit={handleSubmit}>
+                        <InputGroup>
+                            <IconSlot>
+                                <SVGIcon name="email" height="21.5" width="17.2"/>
+                            </IconSlot>
+                            <Input  
+                                type="email" 
+                                placeholder="Your email" 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                required
+                            />
+                        </InputGroup>
+                        <InputGroup>
+                            <IconSlot>
+                                <SVGIcon name="key" height="19" width="19"/>
+                            </IconSlot>
+                            <Input  
+                                type="password" 
+                                placeholder="Password" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                required
+                            />
+                        </InputGroup>
+                        <InputGroup>
+                            <IconSlot>
+                                <SVGIcon name="key" height="19" width="19"/>
+                            </IconSlot>
+                            <Input  
+                                type="password" 
+                                placeholder="Repeat Password" 
+                                value={repeatPassword} 
+                                onChange={(e) => SetRepeatPassword(e.target.value)} 
+                                required
+                            />
+                        </InputGroup>
+                        <PrimaryButton type="submit">
+                            {data.submitButtonText}
+                        </PrimaryButton>
+                        <Divider>
+                            <span>{data.dividerText}</span>
+                        </Divider>
+                        <BottomPrompt>
+                            {data.bottomPrompt.text}
+                            <Link href={data.bottomPrompt.actionHref}>
+                                {data.bottomPrompt.actionText}    
+                            </Link>
+                        </BottomPrompt>
+                    </Form>
+                </FormContainer>
+            </FormSide>
+        </AuthWrapper>
+    )
+}
+
+export default SignUpPage;

@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 // ==========================================
 // Home Hero Component Interfaces
 // ==========================================
@@ -34,7 +36,7 @@ export interface HomeHeroSectionProps {
   data: HomeHeroData;
 }
 
-export interface AuthQuoteData{
+export interface AuthQuoteData {
   quoteText: {
     start: string;
     highlight1: string;
@@ -43,21 +45,21 @@ export interface AuthQuoteData{
     end?: string;
   };
   author: string;
-  imageUrl: string;
+  imageUrl: StaticImageData | string;
   imageAlt: string;
 }
 
-export interface AuthPageData{
+export interface AuthPageData {
   title: string;
   submitButtonText: string;
   forgotPasswordText?: string;
   forgotPasswordHref?: string;
   dividerText: string;
-  socialButtons:{
+  socialButtons: {
     googleText: string;
     facebookText: string;
   };
-  bottomPrompt:{
+  bottomPrompt: {
     text: string;
     actionText: string;
     actionHref: string;
@@ -65,10 +67,10 @@ export interface AuthPageData{
   quote: AuthQuoteData;
 }
 
-export interface SignInPageProps{
+export interface SignInPageProps {
   data: AuthPageData;
 }
 
-export interface SignUpPageProps{
+export interface SignUpPageProps {
   data: AuthPageData;
 }

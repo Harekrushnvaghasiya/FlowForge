@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+import SignInBg from "./signinbg.png";
+import SignUpBg from "./signupbg.png";
 
 export const Images = {
-    SignInBg: require("../images/signinbg.png").default,
-    SignUpBg: require("../images/signupbg.png").default,  
-}
+  SignInBg,
+  SignUpBg,
+};

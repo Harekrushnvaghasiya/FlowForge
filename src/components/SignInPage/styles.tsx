@@ -180,17 +180,19 @@ export const BottomPrompt = styled.p`
   }
 `;
 
-export const ImageSide = styled.div<{ $bgImage: string }>`
+export const ImageSide = styled.div<{ $bgImage?: string }>`
   flex: 1;
   position: relative;
-  background-image: url("${(props) => props.$bgImage}");
-  background-size: cover;
-  background-position: center;
+  ${(props) =>
+    props.$bgImage
+      ? `background-image: url("${props.$bgImage}"); background-size: cover; background-position: center;`
+      : ""}
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 80px 60px;
   min-height: 400px;
+  overflow: hidden;
 
   @media (max-width: 991px) {
     display: none;
