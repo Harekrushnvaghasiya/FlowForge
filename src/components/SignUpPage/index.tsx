@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { SignUpPageProps } from "@/global/appTypes";
 import { useState } from "react";
@@ -17,34 +17,37 @@ import {
     Input, 
     PrimaryButton, 
     Divider, 
+    SocialButton,
+    SocialRow,
     BottomPrompt 
-} from "../SignUpPage/styles";
+} from "./styles";
 import Image from "next/image";
 import SVGIcon from "@/assets/icons/SVGIcon";
 import Link from "next/link";
 
-function SignUpPage({data}:SignUpPageProps) {
+export function SignUpPage({ data }: SignUpPageProps) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [repeatPassword, SetRepeatPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if(password !== repeatPassword){
+        if (password !== repeatPassword) {
             alert("Passwords do not match");
             return;
         }
-        console.log("Sign Up Submitted!", {email,password});
+        console.log("Sign Up Submitted!", { email, password });
     };
 
-    return(
+    return (
         <AuthWrapper>
             <ImageSide>
                 <Image 
                     src={data.quote.imageUrl}
-                    alt= {data.quote.imageAlt || "Sign Up Background"}
+                    alt={data.quote.imageAlt || "Sign Up Background"}
                     fill
                     priority
-                    style={{objectFit:"cover", zIndex: 0}}
+                    style={{ objectFit: "cover", zIndex: 0 }}
                 />
                 <QuoteBox>
                     <QuoteText>
@@ -53,8 +56,9 @@ function SignUpPage({data}:SignUpPageProps) {
                         {data.quote.quoteText.middle}
                         <span className="highlight">{data.quote.quoteText.highlight2}</span>
                     </QuoteText>
-                    {data.quote.author && 
-                    <Author>{data.quote.author}</Author>}
+                    {data.quote.author && (
+                        <Author>{data.quote.author}</Author>
+                    )}
                 </QuoteBox>
             </ImageSide>
 
@@ -64,10 +68,12 @@ function SignUpPage({data}:SignUpPageProps) {
                     <Form onSubmit={handleSubmit}>
                         <InputGroup>
                             <IconSlot>
-                                <SVGIcon name="email" height="21.5" width="17.2"/>
+                                <SVGIcon name="email" height="21.5" width="17.2" />
                             </IconSlot>
                             <Input  
-                                type="email" 
+                                type="email"
+                                name="email"
+                                autoComplete="email"
                                 placeholder="Your email" 
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)} 
@@ -76,10 +82,12 @@ function SignUpPage({data}:SignUpPageProps) {
                         </InputGroup>
                         <InputGroup>
                             <IconSlot>
-                                <SVGIcon name="key" height="19" width="19"/>
+                                <SVGIcon name="key" height="19" width="19" />
                             </IconSlot>
                             <Input  
-                                type="password" 
+                                type="password"
+                                name="password"
+                                autoComplete="new-password"
                                 placeholder="Password" 
                                 value={password} 
                                 onChange={(e) => setPassword(e.target.value)} 
@@ -88,22 +96,40 @@ function SignUpPage({data}:SignUpPageProps) {
                         </InputGroup>
                         <InputGroup>
                             <IconSlot>
-                                <SVGIcon name="key" height="19" width="19"/>
+                                <SVGIcon name="key" height="19" width="19" />
                             </IconSlot>
                             <Input  
-                                type="password" 
+                                type="password"
+                                name="confirmPassword"
+                                autoComplete="new-password"
                                 placeholder="Repeat Password" 
                                 value={repeatPassword} 
-                                onChange={(e) => SetRepeatPassword(e.target.value)} 
+                                onChange={(e) => setRepeatPassword(e.target.value)} 
                                 required
                             />
                         </InputGroup>
+
                         <PrimaryButton type="submit">
                             {data.submitButtonText}
                         </PrimaryButton>
+
                         <Divider>
                             <span>{data.dividerText}</span>
                         </Divider>
+
+                        {data.socialButtons && (
+                            <SocialRow>
+                                <SocialButton type="button">
+                                    <SVGIcon name="google" width="18" height="18" />
+                                    {data.socialButtons.googleText}
+                                </SocialButton>
+                                <SocialButton type="button">
+                                    <SVGIcon name="facebook" width="18" height="18" />
+                                    {data.socialButtons.facebookText}
+                                </SocialButton>
+                            </SocialRow>
+                        )}
+
                         <BottomPrompt>
                             {data.bottomPrompt.text}
                             <Link href={data.bottomPrompt.actionHref}>
@@ -114,7 +140,7 @@ function SignUpPage({data}:SignUpPageProps) {
                 </FormContainer>
             </FormSide>
         </AuthWrapper>
-    )
+    );
 }
 
 export default SignUpPage;

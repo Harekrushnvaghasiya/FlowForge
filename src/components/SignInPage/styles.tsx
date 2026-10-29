@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import Link from "next/link";
 
 export const AuthWrapper = styled.div`
   width: 100%;
@@ -101,7 +102,7 @@ export const PrimaryButton = styled.button`
   }
 `;
 
-export const ForgotPassword = styled.a`
+export const ForgotPassword = styled(Link)`
   align-self: flex-end;
   font-size: 13px;
   color: #1677ff;
