@@ -1,5 +1,4 @@
-import SignInPage from "@/components/SignInPage";
-import { signInData } from "@/helpers/raw";
+import AuthSlider from "@/components/AuthSlider";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,8 +6,6 @@ export const metadata: Metadata = {
     description: "Log in to your FlowForge account",
 };
 
-export default function SignInRoute(){
-    return (
-        <SignInPage data={signInData} />
-    )
+export default function SignInRoute() {
+    return <AuthSlider initialMode="signin" />;
 }

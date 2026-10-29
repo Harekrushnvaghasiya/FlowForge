@@ -111,7 +111,7 @@ export function SignInPage({ data }: SignInPageProps) {
                     alt={data.quote.imageAlt || "Sign In Background"}
                     fill
                     priority
-                    style={{ objectFit: "cover", zIndex: 0 }}
+                    style={{ objectFit: "cover", objectPosition: "93% bottom", zIndex: 0 }}
                 />
                 <QuoteBox>
                     <QuoteText>

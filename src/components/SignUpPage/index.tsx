@@ -47,7 +47,7 @@ export function SignUpPage({ data }: SignUpPageProps) {
                     alt={data.quote.imageAlt || "Sign Up Background"}
                     fill
                     priority
-                    style={{ objectFit: "cover", zIndex: 0 }}
+                    style={{ objectFit: "cover", objectPosition: "0% bottom", zIndex: 0 }}
                 />
                 <QuoteBox>
                     <QuoteText>
