@@ -376,15 +376,15 @@ const getSizeStyles = (size: ButtonSize) => {
       return css`
         height: 38px;
         padding: 0 var(--spacing-16);
-        font-size: var(--spacing-13, 13px);
+        font-size: var(--font-size-body-xxs, 14px);
         border-radius: var(--radius-4);
       `;
 
     case BUTTON_SIZES.LG:
       return css`
-        height: 54px;
-        padding: var(--spacing-14) var(--spacing-28);
-        font-size: var(--font-size-body-sm, 18px);
+        height: var(--spacing-60, 60px);
+        padding: 0 var(--spacing-32);
+        font-size: var(--font-size-body-md, 20px);
         border-radius: var(--radius-8);
       `;
 

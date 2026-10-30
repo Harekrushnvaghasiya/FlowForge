@@ -126,23 +126,20 @@
   --glass-specular-pure: rgba(255, 255, 255, 0.95);
   --glass-specular-solid: #ffffff;
 
-  --glass-border-light: rgba(255, 255, 255, 0.35);
   --glass-border-medium: rgba(255, 255, 255, 0.4);
-  --glass-border-strong: rgba(255, 255, 255, 0.6);
 
   --glass-shadow-ambient-3: rgba(0, 0, 0, 0.03);
   --glass-shadow-ambient-4: rgba(0, 0, 0, 0.04);
   --glass-shadow-ambient-5: rgba(0, 0, 0, 0.05);
   --glass-shadow-ambient-6: rgba(0, 0, 0, 0.06);
   --glass-shadow-ambient-8: rgba(0, 0, 0, 0.08);
-  --glass-shadow-ambient-10: rgba(0, 0, 0, 0.1);
   --glass-shadow-ambient-12: rgba(0, 0, 0, 0.12);
   --glass-shadow-ambient-16: rgba(0, 0, 0, 0.16);
   --glass-shadow-ambient-35: rgba(0, 0, 0, 0.35);
   --glass-shadow-ambient-40: rgba(0, 0, 0, 0.4);
 
-  --glass-overlay-start: rgba(255, 255, 255, 0.28);
-  --glass-overlay-mid: rgba(255, 255, 255, 0.08);
+  --glass-overlay-start: rgba(255, 255, 255, 0.75);
+  --glass-overlay-mid: rgba(255, 255, 255, 0.15);
   --glass-overlay-end: rgba(255, 255, 255, 0);
 
   /* Spacing Variables */
