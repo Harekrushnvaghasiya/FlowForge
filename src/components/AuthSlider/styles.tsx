@@ -189,24 +189,6 @@ export const FormErrorMessage = styled.div`
   width: 100%;
 `;
 
-export const PrimaryButton = styled.button`
-  width: 100%;
-  height: 46px;
-  background-color: #1677ff;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 4px;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #0958d9;
-  }
-`;
-
 export const ForgotPassword = styled(Link)`
   align-self: flex-end;
   font-size: 13px;
@@ -244,28 +226,6 @@ export const SocialRow = styled.div`
   display: flex;
   gap: 12px;
   width: 100%;
-`;
-
-export const SocialButton = styled.button`
-  flex: 1;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    background-color: #f9fafb;
-    border-color: #d1d5db;
-  }
 `;
 
 export const BottomPrompt = styled.p`
