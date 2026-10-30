@@ -20,7 +20,7 @@ export const HeroWrapper = styled.section`
   }
 
   @media (max-width: 767px) {
-    padding-top: var(--vertical-half-padding);
+    padding-top: var(--spacing-16);
     padding-bottom: var(--vertical-padding);
   }
 `;
@@ -35,8 +35,13 @@ export const TopRightNav = styled.div`
   gap: var(--spacing-12);
 
   @media (max-width: 767px) {
-    top: var(--spacing-16);
-    right: var(--horizontal-padding);
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    justify-content: flex-end;
+    padding-inline: var(--horizontal-padding);
+    margin-bottom: var(--spacing-20);
   }
 `;
 

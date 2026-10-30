@@ -21,9 +21,9 @@ export const GlossOverlay = styled.span`
   height: 50%;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(255, 255, 255, 0.15) 60%,
-    rgba(255, 255, 255, 0) 100%
+    var(--glass-overlay-start, rgba(255, 255, 255, 0.28)) 0%,
+    var(--glass-overlay-mid, rgba(255, 255, 255, 0.08)) 60%,
+    var(--glass-overlay-end, rgba(255, 255, 255, 0)) 100%
   );
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
@@ -36,9 +36,9 @@ export const GlassInnerRim = styled.span`
   inset: 0px;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 10px 1px rgba(0, 0, 0, 0.08),
-    inset 0 2px 3px 0 rgba(0, 0, 0, 0.07),
-    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.05);
+    inset 0 0 10px 1px var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08)),
+    inset 0 2px 3px 0 var(--glass-shadow-ambient-6, rgba(0, 0, 0, 0.06)),
+    inset 0 -2px 3px 0 var(--glass-shadow-ambient-5, rgba(0, 0, 0, 0.05));
   pointer-events: none;
   z-index: 1;
   transition:
@@ -55,9 +55,9 @@ export const GlassReflectionOverlay = styled.span`
   border-radius: inherit;
   background: radial-gradient(
     ellipse 65% 85% at 88% 85%,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(255, 255, 255, 0.38) 45%,
-    rgba(255, 255, 255, 0) 80%
+    var(--glass-specular-strong, rgba(255, 255, 255, 0.78)) 0%,
+    var(--glass-specular-light, rgba(255, 255, 255, 0.38)) 45%,
+    var(--transparent, transparent) 80%
   );
   pointer-events: none;
   z-index: 3;
@@ -194,10 +194,10 @@ const getVariantStyles = (variant: ButtonVariant) => {
         color: var(--text-primary, #0f0e0e);
         border: 1px solid var(--glass-border-medium, rgba(255, 255, 255, 0.4));
         box-shadow:
-          0 8px 20px -4px rgba(0, 0, 0, 0.08),
-          0 2px 6px 0 rgba(0, 0, 0, 0.04),
-          inset 0 1px 2px 0 rgba(255, 255, 255, 0.95),
-          inset 0 -2px 3px 0 rgba(0, 0, 0, 0.06);
+          0 8px 20px -4px var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08)),
+          0 2px 6px 0 var(--glass-shadow-ambient-4, rgba(0, 0, 0, 0.04)),
+          inset 0 1px 2px 0 var(--glass-specular-pure, rgba(255, 255, 255, 0.95)),
+          inset 0 -2px 3px 0 var(--glass-shadow-ambient-6, rgba(0, 0, 0, 0.06));
 
         &:hover:not(:disabled) {
           background: linear-gradient(
@@ -206,10 +206,10 @@ const getVariantStyles = (variant: ButtonVariant) => {
             var(--btn-secondary-hover-end, rgba(255, 255, 255, 0.25)) 100%
           );
           box-shadow:
-            0 12px 28px -4px rgba(0, 0, 0, 0.12),
-            0 4px 10px 0 rgba(0, 0, 0, 0.06),
-            inset 0 1px 2px 0 rgba(255, 255, 255, 1),
-            inset 0 -2px 4px 0 rgba(0, 0, 0, 0.08);
+            0 12px 28px -4px var(--glass-shadow-ambient-12, rgba(0, 0, 0, 0.12)),
+            0 4px 10px 0 var(--glass-shadow-ambient-6, rgba(0, 0, 0, 0.06)),
+            inset 0 1px 2px 0 var(--glass-specular-solid, #ffffff),
+            inset 0 -2px 4px 0 var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08));
           transform: translateY(-2px);
         }
       `;
@@ -282,18 +282,16 @@ const getVariantStyles = (variant: ButtonVariant) => {
           var(--btn-primary-bg-end, rgba(214, 218, 228, 0.55)) 100%
         );
         color: var(--btn-primary-text, #1a1a1c);
-        font-size: 18px;
-        font-weight: 500;
+        font-weight: var(--font-weight-medium, 500);
         letter-spacing: -0.015em;
-        border-radius: 9999px;
         /* Outer border remains as it is on the boundary */
         border: 1px solid var(--btn-primary-border, rgba(0, 0, 0, 0.14));
-        border-top-color: var(--btn-primary-border-top, #ffffff);
+        border-top-color: var(--btn-primary-border-top, var(--glass-specular-solid, #ffffff));
         border-bottom-color: var(--btn-primary-border-bottom, rgba(0, 0, 0, 0.18));
         box-shadow:
           0 3px 10px 0 var(--btn-primary-shadow, rgba(0, 0, 0, 0.04)),
-          inset 0 1.5px 1px 0 #ffffff,
-          inset 0 -1.5px 1px 0 rgba(255, 255, 255, 0.85);
+          inset 0 1.5px 1px 0 var(--glass-specular-solid, #ffffff),
+          inset 0 -1.5px 1px 0 var(--glass-specular-intense, rgba(255, 255, 255, 0.85));
 
         /* On hover: glass mirror pulls outward toward viewer with external elevation; shadow stays inside */
         &:hover:not(:disabled) {
@@ -304,22 +302,22 @@ const getVariantStyles = (variant: ButtonVariant) => {
             var(--btn-primary-hover-mid, rgba(226, 230, 238, 0.48)) 45%,
             var(--btn-primary-hover-end, rgba(220, 224, 234, 0.58)) 100%
           );
-          border-color: rgba(0, 0, 0, 0.12);
-          border-top-color: #ffffff;
-          border-bottom-color: rgba(0, 0, 0, 0.15);
+          border-color: var(--btn-primary-border-hover, rgba(0, 0, 0, 0.12));
+          border-top-color: var(--glass-specular-solid, #ffffff);
+          border-bottom-color: var(--btn-primary-border-bottom, rgba(0, 0, 0, 0.18));
           box-shadow:
-            0 18px 38px -4px var(--btn-primary-shadow-hover, rgba(0, 0, 0, 0.16)),
-            0 8px 16px 0 rgba(0, 0, 0, 0.06),
-            inset 0 2px 2px 0 #ffffff,
-            inset 0 -2px 2px 0 rgba(255, 255, 255, 0.9);
+            0 18px 38px -4px var(--btn-primary-shadow-hover, rgba(0, 0, 0, 0.14)),
+            0 8px 16px 0 var(--glass-shadow-ambient-6, rgba(0, 0, 0, 0.06)),
+            inset 0 2px 2px 0 var(--glass-specular-solid, #ffffff),
+            inset 0 -2px 2px 0 var(--glass-specular-pure, rgba(255, 255, 255, 0.95));
 
           /* The shadow stays inside the button as pure liquid glass refraction */
           ${GlassInnerRim} {
             inset: 0px;
             box-shadow:
-              inset 0 0 12px 1px rgba(0, 0, 0, 0.07),
-              inset 0 2px 3px 0 rgba(0, 0, 0, 0.08),
-              inset 0 -2px 3px 0 rgba(0, 0, 0, 0.04);
+              inset 0 0 12px 1px var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08)),
+              inset 0 2px 3px 0 var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08)),
+              inset 0 -2px 3px 0 var(--glass-shadow-ambient-4, rgba(0, 0, 0, 0.04));
           }
 
           /* The reflection moves inward towards the text and fades */
@@ -345,16 +343,16 @@ const getVariantStyles = (variant: ButtonVariant) => {
         &:active:not(:disabled) {
           transform: translateY(1px) scale(0.99);
           box-shadow:
-            0 1px 4px 0 rgba(0, 0, 0, 0.05),
-            inset 0 1px 1px 0 #ffffff,
-            inset 0 -1px 1px 0 rgba(0, 0, 0, 0.08);
+            0 1px 4px 0 var(--glass-shadow-ambient-5, rgba(0, 0, 0, 0.05)),
+            inset 0 1px 1px 0 var(--glass-specular-solid, #ffffff),
+            inset 0 -1px 1px 0 var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08));
 
           ${GlassInnerRim} {
             inset: 0px;
             box-shadow:
-              inset 0 0 10px 1px rgba(0, 0, 0, 0.08),
-              inset 0 2px 3px 0 rgba(0, 0, 0, 0.07),
-              inset 0 -2px 3px 0 rgba(0, 0, 0, 0.05);
+              inset 0 0 10px 1px var(--glass-shadow-ambient-8, rgba(0, 0, 0, 0.08)),
+              inset 0 2px 3px 0 var(--glass-shadow-ambient-6, rgba(0, 0, 0, 0.06)),
+              inset 0 -2px 3px 0 var(--glass-shadow-ambient-5, rgba(0, 0, 0, 0.05));
           }
 
           ${ButtonTextShadow} {
@@ -378,15 +376,15 @@ const getSizeStyles = (size: ButtonSize) => {
       return css`
         height: 38px;
         padding: 0 var(--spacing-16);
-        font-size: 13px;
-        border-radius: var(--radius-6);
+        font-size: var(--spacing-13, 13px);
+        border-radius: var(--radius-4);
       `;
 
     case BUTTON_SIZES.LG:
       return css`
         height: 54px;
         padding: var(--spacing-14) var(--spacing-28);
-        font-size: 16px;
+        font-size: var(--font-size-body-sm, 18px);
         border-radius: var(--radius-8);
       `;
 
@@ -395,7 +393,7 @@ const getSizeStyles = (size: ButtonSize) => {
       return css`
         height: 54px;
         padding: 0 var(--spacing-28);
-        font-size: 17px;
+        font-size: var(--font-size-body-sm, 18px);
         border-radius: var(--radius-8);
       `;
   }
