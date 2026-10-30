@@ -19,11 +19,9 @@ import {
   IconSlot,
   Input,
   FormErrorMessage,
-  PrimaryButton,
   ForgotPassword,
   Divider,
   SocialRow,
-  SocialButton,
   BottomPrompt,
   SlidingQuotePanel,
   QuoteLayer,
@@ -32,6 +30,8 @@ import {
   Author,
 } from "./styles";
 import { AuthSliderProps } from "@/global/appTypes";
+import Button from "@/components/Button";
+import { BUTTON_VARIANTS } from "@/global/constant";
 
 export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) {
   const pathname = usePathname();
@@ -213,7 +213,9 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                 />
               </InputGroup>
 
-              <PrimaryButton type="submit">{signInData.submitButtonText}</PrimaryButton>
+              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
+                {signInData.submitButtonText}
+              </Button>
 
               {signInData.forgotPasswordText && (
                 <ForgotPassword href={signInData.forgotPasswordHref || "/forgot-password"}>
@@ -227,14 +229,22 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
 
               {signInData.socialButtons && (
                 <SocialRow>
-                  <SocialButton type="button">
-                    <SVGIcon name="google" width="18" height="18" />
+                  <Button
+                    type="button"
+                    variant={BUTTON_VARIANTS.SOCIAL}
+                    fullWidth
+                    icon={<SVGIcon name="google" width="18" height="18" />}
+                  >
                     {signInData.socialButtons.googleText}
-                  </SocialButton>
-                  <SocialButton type="button">
-                    <SVGIcon name="facebook" width="18" height="18" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={BUTTON_VARIANTS.SOCIAL}
+                    fullWidth
+                    icon={<SVGIcon name="facebook" width="18" height="18" />}
+                  >
                     {signInData.socialButtons.facebookText}
-                  </SocialButton>
+                  </Button>
                 </SocialRow>
               )}
 
@@ -317,7 +327,9 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                 </FormErrorMessage>
               )}
 
-              <PrimaryButton type="submit">{signUpData.submitButtonText}</PrimaryButton>
+              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
+                {signUpData.submitButtonText}
+              </Button>
 
               <Divider>
                 <span>{signUpData.dividerText}</span>
@@ -325,14 +337,22 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
 
               {signUpData.socialButtons && (
                 <SocialRow>
-                  <SocialButton type="button">
-                    <SVGIcon name="google" width="18" height="18" />
+                  <Button
+                    type="button"
+                    variant={BUTTON_VARIANTS.SOCIAL}
+                    fullWidth
+                    icon={<SVGIcon name="google" width="18" height="18" />}
+                  >
                     {signUpData.socialButtons.googleText}
-                  </SocialButton>
-                  <SocialButton type="button">
-                    <SVGIcon name="facebook" width="18" height="18" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={BUTTON_VARIANTS.SOCIAL}
+                    fullWidth
+                    icon={<SVGIcon name="facebook" width="18" height="18" />}
+                  >
                     {signUpData.socialButtons.facebookText}
-                  </SocialButton>
+                  </Button>
                 </SocialRow>
               )}
 

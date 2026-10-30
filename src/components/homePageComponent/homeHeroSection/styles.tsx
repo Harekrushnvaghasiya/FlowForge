@@ -3,6 +3,7 @@
 import styled from "styled-components";
 
 export const HeroWrapper = styled.section`
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -21,6 +22,21 @@ export const HeroWrapper = styled.section`
   @media (max-width: 767px) {
     padding-top: var(--vertical-half-padding);
     padding-bottom: var(--vertical-padding);
+  }
+`;
+
+export const TopRightNav = styled.div`
+  position: absolute;
+  top: var(--spacing-28);
+  right: var(--horizontal-padding);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+
+  @media (max-width: 767px) {
+    top: var(--spacing-16);
+    right: var(--horizontal-padding);
   }
 `;
 
@@ -66,7 +82,8 @@ export const StatusDot = styled.span`
   animation: pulse 2s infinite ease-in-out;
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -131,60 +148,10 @@ export const ButtonGroup = styled.div`
     width: 100%;
     flex-direction: column;
     gap: var(--spacing-12);
-  }
-`;
 
-export const PrimaryButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-14) var(--spacing-28);
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-medium);
-  background-color: var(--wine-red);
-  color: var(--text-white);
-  border-radius: var(--radius-4);
-  text-decoration: none;
-  box-shadow: var(--box-shadow);
-  transition: opacity 0.2s ease, transform 0.15s ease;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-`;
-
-export const SecondaryButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-14) var(--spacing-28);
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-medium);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-4);
-  text-decoration: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--bg-off-white);
-    border-color: var(--border-tertiary);
-  }
-
-  @media (max-width: 767px) {
-    width: 100%;
+    & > * {
+      width: 100%;
+    }
   }
 `;
 
@@ -206,4 +173,3 @@ export const TechBadge = styled.span`
   color: var(--text-secondary);
   border-radius: var(--radius-4);
 `;
-

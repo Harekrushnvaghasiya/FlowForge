@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import SVGIcon from "@/assets/icons/SVGIcon";
+import Button from "@/components/Button";
+import { BUTTON_VARIANTS } from "@/global/constant";
 import {
   Wrapper,
   Card,
@@ -11,7 +13,6 @@ import {
   InputGroup,
   IconSlot,
   Input,
-  PrimaryButton,
   BackToLogin,
 } from "./styles";
 
@@ -52,12 +53,19 @@ export default function ForgotPasswordPage() {
               />
             </InputGroup>
 
-            <PrimaryButton type="submit">Send Reset Link</PrimaryButton>
+            <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
+              Send Reset Link
+            </Button>
           </Form>
         ) : (
-          <PrimaryButton type="button" onClick={() => setSubmitted(false)}>
+          <Button
+            type="button"
+            variant={BUTTON_VARIANTS.PRIMARY}
+            fullWidth
+            onClick={() => setSubmitted(false)}
+          >
             Resend Email
-          </PrimaryButton>
+          </Button>
         )}
 
         <BackToLogin href="/signin">← Back to Log In</BackToLogin>

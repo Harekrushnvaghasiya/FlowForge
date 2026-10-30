@@ -82,24 +82,6 @@ export const Input = styled.input`
   }
 `;
 
-export const PrimaryButton = styled.button`
-  width: 100%;
-  height: 46px;
-  background-color: #1677ff;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 4px;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #0958d9;
-  }
-`;
-
 export const BackToLogin = styled(Link)`
   display: inline-flex;
   align-items: center;
@@ -114,4 +96,3 @@ export const BackToLogin = styled(Link)`
     text-decoration: underline;
   }
 `;
-

@@ -3,8 +3,11 @@
 import React from "react";
 import { Container } from "@/styles/common";
 import { HomeHeroSectionProps } from "@/global/appTypes";
+import Button from "@/components/Button";
+import { BUTTON_VARIANTS, BUTTON_SIZES } from "@/global/constant";
 import {
   HeroWrapper,
+  TopRightNav,
   HeroContent,
   StatusBadge,
   StatusDot,
@@ -12,8 +15,6 @@ import {
   HeroHighlight,
   HeroDescription,
   ButtonGroup,
-  PrimaryButton,
-  SecondaryButton,
   TechStackWrapper,
   TechBadge,
 } from "./styles";
@@ -23,6 +24,16 @@ export function HomeHeroSection({ data }: HomeHeroSectionProps) {
 
   return (
     <HeroWrapper>
+      <TopRightNav>
+        <Button
+          href="/signin"
+          variant={BUTTON_VARIANTS.SECONDARY}
+          size={BUTTON_SIZES.SM}
+        >
+          Sign In
+        </Button>
+      </TopRightNav>
+
       <Container>
         <HeroContent>
           {/* Status Badge */}
@@ -44,18 +55,26 @@ export function HomeHeroSection({ data }: HomeHeroSectionProps) {
 
           {/* Action Buttons */}
           <ButtonGroup>
-            <PrimaryButton href={buttons.primary.href}>
+            <Button
+              href={buttons.primary.href}
+              variant={BUTTON_VARIANTS.BRAND}
+              size={BUTTON_SIZES.LG}
+              isExternal={buttons.primary.isExternal}
+            >
               {buttons.primary.label}
-            </PrimaryButton>
-            <SecondaryButton
+            </Button>
+            <Button
               href={buttons.secondary.href}
+              variant={BUTTON_VARIANTS.SECONDARY}
+              size={BUTTON_SIZES.LG}
+              isExternal={buttons.secondary.isExternal}
               {...(buttons.secondary.isExternal && {
                 target: "_blank",
                 rel: "noopener noreferrer",
               })}
             >
               {buttons.secondary.label}
-            </SecondaryButton>
+            </Button>
           </ButtonGroup>
 
           {/* Tech Stack Badges */}
@@ -71,4 +90,3 @@ export function HomeHeroSection({ data }: HomeHeroSectionProps) {
 }
 
 export default HomeHeroSection;
-

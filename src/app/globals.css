@@ -69,6 +69,82 @@
   --box-shadow-secondary: 0px 0px 4px 0px #0000000f;
   --box-shadow-dropdown: 0px 2px 12px 0px #0000001a;
 
+  /* Button & Liquid Glass Colors */
+  --btn-brand-bg-start: rgba(97, 37, 37, 0.94);
+  --btn-brand-bg-end: rgba(77, 9, 8, 0.96);
+  --btn-brand-hover-start: rgba(120, 42, 42, 0.98);
+  --btn-brand-hover-end: rgba(87, 20, 20, 0.98);
+  --btn-brand-border: rgba(240, 148, 149, 0.35);
+  --btn-brand-border-hover: rgba(240, 148, 149, 0.6);
+  --btn-brand-shadow: rgba(77, 9, 8, 0.35);
+  --btn-brand-shadow-hover: rgba(77, 9, 8, 0.5);
+
+  --btn-primary-bg-start: rgba(255, 255, 255, 0.72);
+  --btn-primary-bg-mid: rgba(220, 224, 232, 0.45);
+  --btn-primary-bg-end: rgba(214, 218, 228, 0.55);
+  --btn-primary-hover-start: rgba(255, 255, 255, 0.82);
+  --btn-primary-hover-mid: rgba(224, 228, 236, 0.52);
+  --btn-primary-hover-end: rgba(220, 224, 234, 0.62);
+  --btn-primary-text: #1a1a1c;
+  --btn-primary-border: rgba(0, 0, 0, 0.14);
+  --btn-primary-border-top: #ffffff;
+  --btn-primary-border-bottom: rgba(0, 0, 0, 0.18);
+  --btn-primary-border-hover: rgba(0, 0, 0, 0.12);
+  --btn-primary-shadow: rgba(0, 0, 0, 0.04);
+  --btn-primary-shadow-hover: rgba(0, 0, 0, 0.14);
+  --btn-primary-focus: rgba(0, 0, 0, 0.18);
+  --btn-primary-reflection-color: #000000;
+  --btn-primary-reflection-opacity: 0.36;
+
+  --btn-secondary-bg-start: rgba(255, 255, 255, 0.35);
+  --btn-secondary-bg-end: rgba(255, 255, 255, 0.12);
+  --btn-secondary-hover-start: rgba(255, 255, 255, 0.55);
+  --btn-secondary-hover-end: rgba(255, 255, 255, 0.25);
+
+  --btn-social-bg-start: rgba(255, 255, 255, 0.92);
+  --btn-social-bg-end: rgba(249, 250, 251, 0.82);
+  --btn-social-hover-start: rgba(255, 255, 255, 0.98);
+  --btn-social-hover-end: rgba(243, 244, 246, 0.95);
+  --btn-social-text: #374151;
+  --btn-social-border: #e5e7eb;
+  --btn-social-border-hover: #d1d5db;
+
+  --btn-outline-bg: rgba(255, 255, 255, 0.12);
+  --btn-outline-bg-hover: rgba(255, 255, 255, 0.22);
+  --btn-outline-border: rgba(255, 255, 255, 0.45);
+  --btn-outline-border-hover: rgba(255, 255, 255, 0.7);
+
+  --btn-ghost-hover: rgba(255, 255, 255, 0.15);
+  --btn-ghost-border-hover: rgba(255, 255, 255, 0.2);
+
+  /* Glass Optics Highlights & Shadows */
+  --glass-specular-light: rgba(255, 255, 255, 0.4);
+  --glass-specular-medium: rgba(255, 255, 255, 0.5);
+  --glass-specular-strong: rgba(255, 255, 255, 0.7);
+  --glass-specular-focus: rgba(255, 255, 255, 0.8);
+  --glass-specular-intense: rgba(255, 255, 255, 0.85);
+  --glass-specular-pure: rgba(255, 255, 255, 0.95);
+  --glass-specular-solid: #ffffff;
+
+  --glass-border-light: rgba(255, 255, 255, 0.35);
+  --glass-border-medium: rgba(255, 255, 255, 0.4);
+  --glass-border-strong: rgba(255, 255, 255, 0.6);
+
+  --glass-shadow-ambient-3: rgba(0, 0, 0, 0.03);
+  --glass-shadow-ambient-4: rgba(0, 0, 0, 0.04);
+  --glass-shadow-ambient-5: rgba(0, 0, 0, 0.05);
+  --glass-shadow-ambient-6: rgba(0, 0, 0, 0.06);
+  --glass-shadow-ambient-8: rgba(0, 0, 0, 0.08);
+  --glass-shadow-ambient-10: rgba(0, 0, 0, 0.1);
+  --glass-shadow-ambient-12: rgba(0, 0, 0, 0.12);
+  --glass-shadow-ambient-16: rgba(0, 0, 0, 0.16);
+  --glass-shadow-ambient-35: rgba(0, 0, 0, 0.35);
+  --glass-shadow-ambient-40: rgba(0, 0, 0, 0.4);
+
+  --glass-overlay-start: rgba(255, 255, 255, 0.28);
+  --glass-overlay-mid: rgba(255, 255, 255, 0.08);
+  --glass-overlay-end: rgba(255, 255, 255, 0);
+
   /* Spacing Variables */
   --spacing-0: 0px;
   --spacing-1: 1px;
