@@ -2,7 +2,8 @@ export type IconName =
     | "email"
     | "key"
     | "google"
-    | "facebook";
+    | "facebook"
+    | "user";
 
 const getViewBox = (name?: IconName) => {
     switch (name) {
@@ -13,6 +14,8 @@ const getViewBox = (name?: IconName) => {
         case "google":
             return "0 0 18 18";
         case "facebook":
+            return "0 0 24 24";
+        case "user":
             return "0 0 24 24";
         default:
             return "0 0 24 24";
@@ -32,8 +35,6 @@ const getPath = (name?: IconName) => {
             return (
                 <path
                     stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                     strokeWidth={2.303}
                     d="m14.97 11.515 1.727 1.727 3.454-3.454-1.727-1.727M9.997 11.306 20.15 1.151M11.515 14.97a5.182 5.182 0 1 1-10.364 0 5.182 5.182 0 0 1 10.364 0Z"
                 />
@@ -66,6 +67,15 @@ const getPath = (name?: IconName) => {
                     d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
                 />
             );
+
+        case "user":
+            return(
+                <path
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    d="M6.035 18.74A8.966 8.966 0 0 0 12 21a8.966 8.966 0 0 0 5.965-2.26C17.672 17.687 15.569 17 12 17c-3.57 0-5.672.687-5.965 1.74Zm-1.434-1.615C5.726 15.638 8.37 15 12 15c3.63 0 6.274.638 7.4 2.125a9 9 0 1 0-14.799 0ZM12 23C5.925 23 1 18.075 1 12S5.925 1 12 1s11 4.925 11 11-4.925 11-11 11ZM8 10c0-2.244 1.58-4 4-4 2.414 0 4 1.922 4 4.2 0 3.28-1.782 4.8-4 4.8-2.24 0-4-1.573-4-5Zm2 0c0 2.27.818 3 2 3 1.178 0 2-.702 2-2.8 0-1.25-.784-2.2-2-2.2-1.266 0-2 .816-2 2Z"
+                />
+            )
         default:
             return <></>;
     }

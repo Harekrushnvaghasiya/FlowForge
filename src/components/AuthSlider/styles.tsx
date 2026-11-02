@@ -151,7 +151,7 @@ export const IconSlot = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: #ADB0CD;
   pointer-events: none;
 `;
 

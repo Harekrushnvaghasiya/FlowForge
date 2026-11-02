@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 import SVGIcon from "@/assets/icons/SVGIcon";
 import { signInData, signUpData } from "@/helpers/raw";
 import {
@@ -35,6 +36,7 @@ import { BUTTON_VARIANTS } from "@/global/constant";
 
 export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [isSignUp, setIsSignUp] = useState(
     initialMode === "signup" || (typeof window !== "undefined" && window.location.pathname.includes("signup"))
@@ -124,25 +126,89 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
   const [signInPassword, setSignInPassword] = useState("");
 
   // Sign Up form state
+  const [signUpFullName, setSignUpFullName] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [signUpError, setSignUpError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [signInError, setSignInError] = useState<string | null>(null);
 
-  const handleSignInSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: call the sign-in API
-  };
+  
+const handleSignInSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const handleSignUpSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (signUpPassword !== repeatPassword) {
-      setSignUpError("Passwords do not match. Please try again.");
+  setSignInError(null);
+  setIsSubmitting(true);
+
+  try {
+    const { data, error } = await authClient.signIn.email({
+      email: signInEmail.trim(),
+      password: signInPassword,
+    });
+
+    if (error) {
+      setSignInError(error.message || "Invalid email or password.");
       return;
     }
-    setSignUpError(null);
-    // TODO: call the sign-up API
-  };
+
+    console.log("Login successful:", data);
+
+    router.push("/dashboard");
+    router.refresh();
+  } catch (error) {
+    console.error("Login error:", error);
+    setSignInError("Something went wrong. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+  
+const handleSignUpSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Check that both passwords match
+  if (signUpPassword !== repeatPassword) {
+    setSignUpError("Passwords do not match. Please try again.");
+    return;
+  }
+
+  // Basic password length validation
+  if (signUpPassword.length < 8) {
+    setSignUpError("Password must contain at least 8 characters.");
+    return;
+  }
+
+  setSignUpError(null);
+  setIsSubmitting(true);
+
+  try {
+    const { data, error } = await authClient.signUp.email({
+      name: signUpFullName.trim(),
+      email: signUpEmail.trim(),
+      password: signUpPassword,
+    });
+
+    if (error) {
+      setSignUpError(error.message || "Unable to create your account.");
+      return;
+    }
+
+    console.log("Signup successful:", data);
+
+    // Better Auth normally signs the user in after successful signup.
+    router.push("/dashboard");
+    router.refresh();
+  } catch (error) {
+    console.error("Signup error:", error);
+    setSignUpError("Something went wrong. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <AuthContainer>
@@ -212,9 +278,15 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
                   required
                 />
               </InputGroup>
+              
+              {signInError && (
+                <FormErrorMessage role="alert" aria-live="assertive">
+                  {signInError}
+                </FormErrorMessage>
+              )}
 
               <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
-                {signInData.submitButtonText}
+                {isSubmitting ? "Please wait..." : signInData.submitButtonText}
               </Button>
 
               {signInData.forgotPasswordText && (
@@ -266,6 +338,24 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
           <FormContent $isActive={isSignUp}>
             <Title>{signUpData.title}</Title>
             <Form onSubmit={handleSignUpSubmit}>
+              <InputGroup>
+                <IconSlot>
+                  <SVGIcon name="user" height="19" width="19" />
+                </IconSlot>
+                <Input
+                  ref={signUpFirstInputRef}
+                  type="name"
+                  name="name"
+                  autoComplete="name"
+                  placeholder="Your full name"
+                  value={signUpFullName}
+                  onChange={(e) => {
+                    setSignUpFullName(e.target.value);
+                    if (signUpError) setSignUpError(null);
+                  }}
+                  required
+                />
+              </InputGroup>
               <InputGroup>
                 <IconSlot>
                   <SVGIcon name="email" height="21.5" width="17.2" />
@@ -328,7 +418,7 @@ export default function AuthSlider({ initialMode = "signin" }: AuthSliderProps) 
               )}
 
               <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
-                {signUpData.submitButtonText}
+                {isSubmitting ? "Creating account..." : signUpData.submitButtonText}
               </Button>
 
               <Divider>
