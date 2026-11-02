@@ -253,7 +253,7 @@ export const StatCard = styled.div`
     color: var(--text-secondary, #595b59);
 
     .trend-up {
-      color: #15803d;
+      color: var(--text-success-trend, #15803d);
       font-weight: var(--font-weight-semibold, 600);
     }
   }
@@ -298,6 +298,11 @@ export const CardHeader = styled.div`
     color: var(--text-primary, #0f0e0e);
     margin: 0;
   }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary, #595b59);
+  }
 `;
 
 export const WorkflowList = styled.div`
@@ -318,7 +323,7 @@ export const WorkflowItem = styled.div`
 
   &:hover {
     border-color: var(--border-primary, #d3c6be);
-    background: #ffffff;
+    background: var(--bg-secondary, #ffffff);
   }
 
   .wf-info {
@@ -346,8 +351,13 @@ export const WorkflowItem = styled.div`
     border-radius: var(--spacing-50, 50px);
     font-size: 12px;
     font-weight: var(--font-weight-medium, 500);
-    background: #dcfce7;
-    color: #166534;
+    background: var(--bg-success, #dcfce7);
+    color: var(--text-success, #166534);
+
+    ${StatusDot} {
+      width: 6px;
+      height: 6px;
+    }
   }
 `;
 
@@ -375,6 +385,19 @@ export const DetailRow = styled.div`
     font-weight: var(--font-weight-semibold, 600);
     color: var(--text-primary, #0f0e0e);
     word-break: break-all;
+
+    &.status-active {
+      color: var(--text-success, #166534);
+    }
+
+    &.status-pending {
+      color: var(--orange, #d76a41);
+    }
+
+    &.user-id {
+      font-size: 12px;
+      font-family: var(--font-mono, monospace);
+    }
   }
 `;
 

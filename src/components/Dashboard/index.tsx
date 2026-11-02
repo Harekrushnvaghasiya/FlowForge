@@ -72,10 +72,31 @@ const mockWorkflows: Workflow[] = [
   },
 ];
 
-export default function Dashboard() {
+interface DashboardUser {
+  id: string;
+  name: string;
+  email: string;
+  image?: string | null;
+  createdAt?: Date;
+  emailVerified?: boolean;
+}
+
+interface DashboardProps {
+  initialUser?: DashboardUser;
+}
+
+export default function Dashboard({ initialUser }: DashboardProps = {}) {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
   const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const user = session?.user || initialUser;
+
+  React.useEffect(() => {
+    if (!isPending && !user) {
+      router.push("/signin");
+    }
+  }, [isPending, user, router]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -91,7 +112,7 @@ export default function Dashboard() {
     }
   };
 
-  if (isPending) {
+  if ((isPending && !initialUser) || !user) {
     return (
       <LoadingContainer>
         <StatusDot />
@@ -100,7 +121,6 @@ export default function Dashboard() {
     );
   }
 
-  const user = session?.user;
   const displayName = user?.name || user?.email?.split("@")[0] || "FlowForge Creator";
   const userInitial = displayName.charAt(0).toUpperCase();
 
@@ -197,9 +217,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader>
               <h2>Recent Workflows & Pipelines</h2>
-              <span style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-                4 flows running
-              </span>
+              <span className="subtitle">4 flows running</span>
             </CardHeader>
 
             <WorkflowList>
@@ -212,7 +230,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                   <span className="wf-status">
-                    <StatusDot style={{ width: "6px", height: "6px" }} />
+                    <StatusDot />
                     {wf.status}
                   </span>
                 </WorkflowItem>
@@ -239,16 +257,14 @@ export default function Dashboard() {
 
               <DetailRow>
                 <span className="label">Account Status</span>
-                <span className="value" style={{ color: "#166534" }}>
-                  Active & Verified
+                <span className={`value ${user?.emailVerified ? "status-active" : "status-pending"}`}>
+                  {user?.emailVerified ? "Active & Verified" : "Pending Verification"}
                 </span>
               </DetailRow>
 
               <DetailRow>
                 <span className="label">User ID</span>
-                <span className="value" style={{ fontSize: "12px", fontFamily: "var(--font-mono, monospace)" }}>
-                  {user?.id || "usr_live_flowforge"}
-                </span>
+                <span className="value user-id">{user?.id || "usr_live_flowforge"}</span>
               </DetailRow>
 
               <QuickActions>

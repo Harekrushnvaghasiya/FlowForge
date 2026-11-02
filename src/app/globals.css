@@ -12,6 +12,9 @@
   --text-ivory-rose: #e4dcdb;
   --text-white: #ffffff;
   --text-rose: #f09495;
+  --text-success: #166534;
+  --text-success-trend: #15803d;
+  --text-icon-muted: #adb0cd;
 
   /* Background Color */
   --bg-primary: #f2ede6;
@@ -40,6 +43,7 @@
   --bg-overlay-60: #00000099;
   --bg-light-brown: #d6c8bd80;
   --bg-ivory-beige: #efe9e0;
+  --bg-success: #dcfce7;
 
   /* Border Color */
   --border-primary: #d3c6be;

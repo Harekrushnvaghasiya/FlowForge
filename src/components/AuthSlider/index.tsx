@@ -142,7 +142,7 @@ const handleSignInSubmit = async (e: React.FormEvent) => {
   setIsSubmitting(true);
 
   try {
-    const { data, error } = await authClient.signIn.email({
+    const { error } = await authClient.signIn.email({
       email: signInEmail.trim(),
       password: signInPassword,
     });
@@ -152,7 +152,6 @@ const handleSignInSubmit = async (e: React.FormEvent) => {
       return;
     }
 
-    console.log("Login successful:", data);
 
     router.push("/dashboard");
     router.refresh();
@@ -185,7 +184,7 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
   setIsSubmitting(true);
 
   try {
-    const { data, error } = await authClient.signUp.email({
+    const { error } = await authClient.signUp.email({
       name: signUpFullName.trim(),
       email: signUpEmail.trim(),
       password: signUpPassword,
@@ -196,7 +195,6 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
       return;
     }
 
-    console.log("Signup successful:", data);
 
     // Better Auth normally signs the user in after successful signup.
     router.push("/dashboard");
@@ -285,7 +283,7 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
                 </FormErrorMessage>
               )}
 
-              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
+              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth disabled={isSubmitting}>
                 {isSubmitting ? "Please wait..." : signInData.submitButtonText}
               </Button>
 
@@ -344,7 +342,7 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
                 </IconSlot>
                 <Input
                   ref={signUpFirstInputRef}
-                  type="name"
+                  type="text"
                   name="name"
                   autoComplete="name"
                   placeholder="Your full name"
@@ -361,7 +359,6 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
                   <SVGIcon name="email" height="21.5" width="17.2" />
                 </IconSlot>
                 <Input
-                  ref={signUpFirstInputRef}
                   type="email"
                   name="email"
                   autoComplete="email"
@@ -417,7 +414,7 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
                 </FormErrorMessage>
               )}
 
-              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth>
+              <Button type="submit" variant={BUTTON_VARIANTS.PRIMARY} fullWidth disabled={isSubmitting}>
                 {isSubmitting ? "Creating account..." : signUpData.submitButtonText}
               </Button>
 
