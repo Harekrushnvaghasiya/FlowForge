@@ -157,7 +157,8 @@ const handleSignInSubmit = async (e: React.FormEvent) => {
     router.refresh();
   } catch (error) {
     console.error("Login error:", error);
-    setSignInError("Something went wrong. Please try again.");
+    const msg = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+    setSignInError(msg || "Something went wrong. Please try again.");
   } finally {
     setIsSubmitting(false);
   }
@@ -201,7 +202,8 @@ const handleSignUpSubmit = async (e: React.FormEvent) => {
     router.refresh();
   } catch (error) {
     console.error("Signup error:", error);
-    setSignUpError("Something went wrong. Please try again.");
+    const msg = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+    setSignUpError(msg || "Something went wrong. Please try again.");
   } finally {
     setIsSubmitting(false);
   }
