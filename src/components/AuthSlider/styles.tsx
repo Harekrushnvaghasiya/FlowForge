@@ -151,7 +151,7 @@ export const IconSlot = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: var(--text-icon-muted, #adb0cd);
   pointer-events: none;
 `;
 
@@ -164,7 +164,7 @@ export const Input = styled.input`
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   outline: none;
-  background-color: #ffffff;
+  background-color: var(--bg-secondary, #ffffff);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &::placeholder {
